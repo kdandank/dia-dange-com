@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept 3 – Pearl & Whimsy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Quicksand:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pearl:  #f0f8ff;
+    --aqua:   #7ecbca;
+    --mint:   #a8dadc;
+    --rose:   #ffb4c2;
+    --gold:   #d4a843;
+    --lilac:  #d8b4fe;
+    --dark:   #2d4a5a;
+  }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background: var(--pearl);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* Animated shell sparkles */
+  .sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    font-size: 1.2rem;
+    animation: twinkle ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+    50% { opacity: 0.7; transform: scale(1) rotate(20deg); }
+  }
+
+  /* ── LANDING ── */
+  .landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(168,218,220,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 80%, rgba(255,180,194,0.3) 0%, transparent 50%),
+      linear-gradient(160deg, #e8f7f8 0%, #f5e6ff 50%, #e0f4f4 100%);
+    overflow: hidden;
+  }
+
+  /* Decorative large shells in background */
+  .bg-shells span {
+    position: absolute;
+    font-size: clamp(4rem, 10vw, 9rem);
+    opacity: 0.07;
+    animation: drift ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%, 100% { transform: rotate(-8deg) scale(1); }
+    50%       { transform: rotate(8deg) scale(1.05); }
+  }
+
+  .landing-badge {
+    width: clamp(220px, 40vw, 320px);
+    height: clamp(220px, 40vw, 320px);
+    border-radius: 50%;
+    background: white;
+    box-shadow:
+      0 0 0 8px rgba(126,203,202,0.2),
+      0 0 0 16px rgba(126,203,202,0.1),
+      0 20px 60px rgba(126,203,202,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .badge-icon { font-size: 2.5rem; margin-bottom: 0.3rem; }
+
+  .badge-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    color: var(--aqua);
+    line-height: 1.1;
+  }
+
+  .badge-sub {
+    font-size: 0.75rem;
+    color: var(--dark);
+    opacity: 0.5;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  .badge-divider {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--rose), var(--aqua));
+    border-radius: 2px;
+    margin: 0.6rem auto;
+  }
+
+  .badge-year {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 1;
+    text-shadow: 1px 2px 0 rgba(212,168,67,0.3);
+  }
+
+  .badge-year-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dark);
+    opacity: 0.45;
+  }
+
+  .cta-btn {
+    margin-top: 2.5rem;
+    padding: 0.9rem 2.5rem;
+    background: linear-gradient(135deg, var(--aqua) 0%, #5bb8b7 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(126,203,202,0.5);
+    transition: all 0.25s;
+    z-index: 2;
+    position: relative;
+  }
+  .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(126,203,202,0.6); }
+
+  /* ── INVITE ── */
+  .invite {
+    min-height: 100vh;
+    padding: 5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(216,180,254,0.2) 0%, transparent 50%),
+      linear-gradient(180deg, #e0f4f4 0%, #f5e6ff 100%);
+    position: relative;
+    z-index: 1;
+  }
+
+  .invite-card {
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .invite-header { margin-bottom: 2.5rem; }
+  .invite-header .emoji-row { font-size: 2.2rem; margin-bottom: 0.8rem; letter-spacing: 0.2em; }
+  .invite-header h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    color: var(--dark);
+    line-height: 1.2;
+  }
+  .invite-header h2 em { color: var(--aqua); font-style: normal; }
+  .invite-header p { font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-top: 0.4rem; }
+
+  .poem-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.8rem;
+    box-shadow: 0 4px 24px rgba(126,203,202,0.15);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 2;
+    color: #5a7080;
+    position: relative;
+  }
+  .poem-card::before { content: '🐚'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 1.6rem; }
+
+  .details-list { display: flex; flex-direction: column; gap: 0; }
+  .detail-row {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.1rem 1.5rem;
+    background: white;
+    border-bottom: 1px solid rgba(126,203,202,0.15);
+  }
+  .detail-row:first-child { border-radius: 20px 20px 0 0; }
+  .detail-row:last-child  { border-radius: 0 0 20px 20px; border-bottom: none; }
+  .detail-row { box-shadow: 0 2px 12px rgba(126,203,202,0.08); }
+
+  .row-icon { font-size: 1.4rem; text-align: center; }
+  .row-info { text-align: left; }
+  .row-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--aqua); font-weight: 600; }
+  .row-value { font-size: 1rem; color: var(--dark); font-weight: 600; margin-top: 0.1rem; }
+
+  .footer-row { margin-top: 2.5rem; font-size: 1.5rem; letter-spacing: 0.3em; opacity: 0.5; }
+
+  .label-design { margin-top: 2rem; font-size: 0.75rem; color: rgba(45,74,90,0.3); letter-spacing: 0.1em; font-family: monospace; }
+</style>
+</head>
+<body>
+
+<!-- Sparkles -->
+<div id="sparkles"></div>
+
+<!-- ── LANDING ── -->
+<section class="landing">
+  <div class="bg-shells">
+    <span style="top:5%;left:-2%;animation-duration:8s">🐚</span>
+    <span style="top:60%;right:-3%;animation-duration:10s;animation-delay:2s">🦀</span>
+    <span style="bottom:5%;left:20%;animation-duration:9s;animation-delay:1s">⭐</span>
+    <span style="top:25%;right:10%;animation-duration:7s;animation-delay:3s">🌊</span>
+  </div>
+
+  <div class="landing-badge">
+    <span class="badge-icon">🧜‍♀️</span>
+    <div class="badge-name">Dia<br>Dange</div>
+    <div class="badge-divider"></div>
+    <div class="badge-year">I</div>
+    <div class="badge-year-text">First Birthday</div>
+    <div class="badge-sub">is turning one</div>
+  </div>
+
+  <button class="cta-btn">View Invitation ✨</button>
+</section>
+
+<!-- ── INVITE ── -->
+<section class="invite">
+  <div class="invite-card">
+
+    <div class="invite-header">
+      <div class="emoji-row">🧜‍♀️ 🐠 🌊 🐚 ⭐</div>
+      <h2><em>One-der</em><br>the Sea</h2>
+      <p>Dia's First Birthday Celebration</p>
+    </div>
+
+    <div class="poem-card">
+      Down below where the bright fishies play,<br>
+      Starfish and seahorses dance through the day.<br>
+      Little Dia turns <em>one</em> with a splash —<br>
+      Come join the wonder, make memories last! 🌊
+    </div>
+
+    <div class="details-list">
+      <div class="detail-row">
+        <span class="row-icon">🎂</span>
+        <div class="row-info">
+          <div class="row-label">Birthday Star</div>
+          <div class="row-value">Dia Dange — She's turning 1!</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <span class="row-icon">📅</span>
+        <div class="row-info">
+          <div class="row-label">Date</div>
+          <div class="row-value">Friday, June 20, 2025</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <span class="row-icon">⏰</span>
+        <div class="row-info">
+          <div class="row-label">Time</div>
+          <div class="row-value">1:00 PM</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <span class="row-icon">📍</span>
+        <div class="row-info">
+          <div class="row-label">Location</div>
+          <div class="row-value">327 E Foster St, Melrose</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-row">🐠 🌟 🐚 🪸 🐡 🦀</div>
+
+  </div>
+  <p class="label-design">— CONCEPT 3: PEARL & WHIMSY —</p>
+</section>
+
+<script>
+  const container = document.getElementById('sparkles');
+  const icons = ['✨','⭐','🌟','💫'];
+  for (let i = 0; i < 12; i++) {
+    const s = document.createElement('span');
+    s.className = 'sparkle';
+    s.textContent = icons[Math.floor(Math.random()*icons.length)];
+    s.style.cssText = `
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      animation-duration:${Math.random()*3+2}s;
+      animation-delay:${Math.random()*4}s;
+    `;
+    container.appendChild(s);
+  }
+</script>
+</body>
+</html>

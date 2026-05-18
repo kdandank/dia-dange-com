@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Post-commit: spell-check HTML files and report findings.
+# Never blocks; always exits 0.
+
+set -euo pipefail
+
+FILES=("index.html" "first-birthday/index.html")
+IGNORE=".codespell-ignore"
+
+if ! command -v codespell &>/dev/null; then
+  echo ""
+  echo "  📝  Spell check skipped (codespell not installed)."
+  echo "      Run: pip install -r requirements-dev.txt"
+  echo ""
+  exit 0
+fi
+
+echo ""
+any_findings=0
+
+for file in "${FILES[@]}"; do
+  output=$(codespell "$file" --ignore-words "$IGNORE" 2>&1 || true)
+  if [[ -n "$output" ]]; then
+    any_findings=1
+    echo "  📝  Spell check findings in $file:"
+    echo "$output" | sed 's/^/      /'
+    echo ""
+    echo "      Fix with:   codespell -w $file --ignore-words $IGNORE"
+    echo "      Ignore word: add it to $IGNORE"
+    echo ""
+  fi
+done
+
+if [[ $any_findings -eq 0 ]]; then
+  echo "  📝  Spell check passed — no issues found."
+fi
+echo ""
+
+exit 0

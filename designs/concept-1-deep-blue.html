@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept 1 – Deep Blue Magic</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --deep: #04102b;
+    --mid: #0a2148;
+    --teal: #0f9b8e;
+    --cyan: #40e0d0;
+    --gold: #f5c842;
+    --white: #e8f4f8;
+  }
+
+  body {
+    background: var(--deep);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Bubbles */
+  .bubbles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(64,224,208,0.3);
+    background: rgba(64,224,208,0.04);
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(110vh) scale(1); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+  }
+
+  /* LANDING PAGE */
+  .landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    background: radial-gradient(ellipse at 50% 80%, #0a3060 0%, #04102b 70%);
+  }
+
+  .ocean-floor {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 160px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160'%3E%3Cpath fill='%23061830' d='M0,80 C240,140 480,20 720,80 C960,140 1200,40 1440,80 L1440,160 L0,160 Z'/%3E%3C/svg%3E") no-repeat bottom / cover;
+  }
+
+  .mermaid-emoji { font-size: 5rem; margin-bottom: 1rem; filter: drop-shadow(0 0 20px rgba(64,224,208,0.6)); }
+
+  .landing h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--cyan);
+    text-shadow: 0 0 40px rgba(64,224,208,0.5), 0 0 80px rgba(64,224,208,0.2);
+    letter-spacing: 0.05em;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  .landing h1 em {
+    font-style: italic;
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(245,200,66,0.6);
+  }
+
+  .landing p {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    color: rgba(232,244,248,0.6);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .cta-btn {
+    margin-top: 3rem;
+    padding: 1rem 3rem;
+    background: transparent;
+    border: 2px solid var(--cyan);
+    color: var(--cyan);
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--cyan);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+    z-index: -1;
+  }
+  .cta-btn:hover { color: var(--deep); }
+  .cta-btn:hover::before { transform: scaleX(1); }
+
+  /* INVITE PAGE */
+  .invite {
+    min-height: 100vh;
+    padding: 4rem 1rem;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, #04102b 0%, #0a2d50 50%, #061830 100%);
+  }
+
+  .invite-card {
+    max-width: 600px;
+    width: 100%;
+    background: rgba(10, 33, 72, 0.7);
+    border: 1px solid rgba(64,224,208,0.2);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 60px rgba(64,224,208,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
+    text-align: center;
+  }
+
+  .poem-box {
+    background: rgba(64,224,208,0.06);
+    border-left: 3px solid var(--cyan);
+    padding: 1.2rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+    color: rgba(232,244,248,0.8);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    text-align: left;
+  }
+
+  .invite-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(245,200,66,0.4);
+    margin-bottom: 0.3rem;
+  }
+
+  .invite-subtitle {
+    font-size: 0.85rem;
+    color: var(--cyan);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .detail-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(64,224,208,0.1);
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .detail-text { text-align: left; }
+  .detail-label { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); }
+  .detail-value { font-size: 1.05rem; color: var(--white); }
+
+  .label-design { margin-top: 1.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+<!-- Bubbles -->
+<div class="bubbles" id="bubbles"></div>
+
+<!-- ── LANDING ── -->
+<section class="landing">
+  <div class="ocean-floor"></div>
+  <div class="mermaid-emoji">🧜‍♀️</div>
+  <h1>Dia <em>Dange</em></h1>
+  <p>is turning one</p>
+  <button class="cta-btn">Open Your Invite 🐠</button>
+</section>
+
+<!-- ── INVITE ── -->
+<section class="invite">
+  <div class="invite-card">
+
+    <div class="poem-box">
+      🐚 Down below where the bright fishies play,<br>
+      Starfish and seahorses dance through the day.<br>
+      Little Dia turns <em>one</em> with a splash,<br>
+      Come join the wonder — make memories last! 🌊
+    </div>
+
+    <div class="invite-title">It's a Party!</div>
+    <div class="invite-subtitle">One-der the Sea 🌊</div>
+
+    <div class="detail-row">
+      <span class="detail-icon">🎂</span>
+      <div class="detail-text">
+        <div class="detail-label">Birthday Baby</div>
+        <div class="detail-value">Dia Dange — Turning 1!</div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">📅</span>
+      <div class="detail-text">
+        <div class="detail-label">Date</div>
+        <div class="detail-value">Friday, June 20, 2025</div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">⏰</span>
+      <div class="detail-text">
+        <div class="detail-label">Time</div>
+        <div class="detail-value">1:00 PM</div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">📍</span>
+      <div class="detail-text">
+        <div class="detail-label">Location</div>
+        <div class="detail-value">327 E Foster St, Melrose</div>
+      </div>
+    </div>
+
+  </div>
+  <p class="label-design">— CONCEPT 1: DEEP BLUE MAGIC —</p>
+</section>
+
+<script>
+  const container = document.getElementById('bubbles');
+  for (let i = 0; i < 18; i++) {
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const size = Math.random() * 30 + 8;
+    b.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*12+8}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    container.appendChild(b);
+  }
+</script>
+</body>
+</html>

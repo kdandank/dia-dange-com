@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dia Dange</title>
+  <meta name="description" content="Dia Dange is turning one!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --coral:      #ff7b6b;
+      --coral-dark: #c95c4d;
+      --dark:       #2d4a5a;
+      --aqua:       #7ecbca;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    body {
+      /* Same gradient as invite page */
+      background:
+        radial-gradient(ellipse at 30% 15%, rgba(168,218,220,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 85%, rgba(255,180,194,0.3)  0%, transparent 55%),
+        linear-gradient(160deg, #e8f7f8 0%, #f5e6ff 50%, #e0f4f4 100%);
+      background-attachment: fixed;
+      color: var(--dark);
+    }
+
+    /* ── Sparkles (same as invite page) ── */
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      animation: twinkle ease-in-out infinite;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0;    transform: scale(0.5) rotate(0deg); }
+      50%       { opacity: 0.55; transform: scale(1)   rotate(20deg); }
+    }
+
+    /* ── Background deco (same style as invite page) ── */
+    .bg-deco {
+      position: fixed;
+      font-size: clamp(4rem, 11vw, 9rem);
+      opacity: 0.07;
+      animation: drift ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+    }
+    @keyframes drift {
+      0%, 100% { transform: rotate(-8deg) scale(1); }
+      50%       { transform: rotate(8deg)  scale(1.05); }
+    }
+
+    /* ── Landing section ── */
+    .landing {
+      min-height: 100svh; /* svh = small viewport height — correct on mobile */
+      min-height: 100vh;  /* fallback for older browsers */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ── Floating critters — kept to edges only ── */
+    .critter {
+      position: absolute;
+      animation: float ease-in-out infinite;
+      pointer-events: none;
+      user-select: none;
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+    }
+    /* Hide middle critters on small phones */
+    @media (max-width: 480px) {
+      .critter.hide-mobile { display: none; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0)     rotate(-5deg); }
+      50%       { transform: translateY(-14px) rotate(5deg); }
+    }
+
+    /* ── Content ── */
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      /* Breathing room so critters don't overlap on tall-narrow phones */
+      padding: 1rem 0.5rem;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .big-one {
+      font-family: 'Pacifico', cursive;
+      /* Coral against the light background, with darker shadow for depth */
+      color: var(--coral);
+      font-size: clamp(5.5rem, 28vw, 13rem);
+      line-height: 1;
+      text-shadow:
+        4px 6px 0 var(--coral-dark),
+        8px 12px 0 rgba(201,92,77,0.2);
+    }
+
+    .content h1 {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      /* Allow wrapping — safer on 320px phones than nowrap */
+      font-size: clamp(1.35rem, 5.5vw, 2.4rem);
+      color: var(--dark);
+      margin-top: 0.1rem;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
+
+    .content p {
+      font-size: clamp(0.82rem, 3.5vw, 0.95rem);
+      color: var(--dark);
+      opacity: 0.6;
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      margin-top: 2.2rem;
+      /* Min 44px tall touch target */
+      padding: 0.85rem 2.6rem;
+      min-height: 44px;
+      background: var(--coral);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+      cursor: pointer;
+      box-shadow: 0 5px 0 var(--coral-dark), 0 7px 18px rgba(255,123,107,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+      /* Prevent tap highlight on iOS */
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cta-btn:hover  { transform: translateY(-3px); box-shadow: 0 8px 0 var(--coral-dark), 0 12px 22px rgba(255,123,107,0.38); }
+    .cta-btn:active { transform: translateY(2px);  box-shadow: 0 3px 0 var(--coral-dark); }
+  </style>
+</head>
+<body>
+
+<!-- Background deco — corners only, never over content -->
+<span class="bg-deco" style="top:-1%;left:-2%;animation-duration:9s">🐚</span>
+<span class="bg-deco" style="bottom:-1%;right:-2%;animation-duration:11s;animation-delay:2s">🌊</span>
+<span class="bg-deco" style="bottom:2%;left:5%;animation-duration:10s;animation-delay:4s">⭐</span>
+<span class="bg-deco" style="top:3%;right:0%;animation-duration:8s;animation-delay:1.5s">🦀</span>
+
+<div id="sparkles"></div>
+
+<section class="landing">
+
+  <!-- Edge critters — positioned well away from center content -->
+  <span class="critter" style="top:6%;left:3%;animation-duration:4s">🐠</span>
+  <span class="critter" style="top:8%;right:4%;animation-duration:5.2s;animation-delay:1s">🧜‍♀️</span>
+  <span class="critter" style="bottom:12%;left:4%;animation-duration:6s;animation-delay:2s">🐡</span>
+  <span class="critter" style="bottom:10%;right:3%;animation-duration:4.8s;animation-delay:1.5s">🐙</span>
+  <!-- These appear only on wider screens -->
+  <span class="critter hide-mobile" style="top:30%;left:2%;animation-duration:5s;animation-delay:.5s">🐚</span>
+  <span class="critter hide-mobile" style="top:35%;right:2%;animation-duration:4.5s;animation-delay:2.5s">⭐</span>
+
+  <div class="content">
+    <span class="big-one">1</span>
+    <h1>Dia is Turning One!</h1>
+    <p>🌊 You're invited to a splashing good time 🌊</p>
+    <a href="/first-birthday" class="cta-btn">See the Invite 🐡</a>
+  </div>
+
+</section>
+
+<script>
+  const container = document.getElementById('sparkles');
+  const icons = ['✨','⭐','🌟','💫'];
+  for (let i = 0; i < 14; i++) {
+    const s = document.createElement('span');
+    s.className = 'sparkle';
+    s.textContent = icons[Math.floor(Math.random() * icons.length)];
+    s.style.cssText = `
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      font-size:${Math.random()*0.7+0.6}rem;
+      animation-duration:${Math.random()*3+2}s;
+      animation-delay:${Math.random()*6}s;
+    `;
+    container.appendChild(s);
+  }
+</script>
+
+</body>
+</html>

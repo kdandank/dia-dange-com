@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/kshitiz/code/**)",
+      "Read(//Users/kshitiz/code/kdange-me/**)",
+      "Bash(chmod +x /Users/kshitiz/code/dia-dange-com/setup.sh /Users/kshitiz/code/dia-dange-com/setup-github.sh)",
+      "Bash(chmod +x /Users/kshitiz/code/dia-dange-com/.githooks/post-commit)"
+    ]
+  }
+}

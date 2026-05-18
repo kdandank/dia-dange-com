@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept 2 – Coral Wonderland</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700&family=Playfair+Display:ital,wght@1,700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --coral:  #ff7b6b;
+    --teal:   #2ec4b6;
+    --sand:   #fff8f0;
+    --yellow: #ffd166;
+    --purple: #c77dff;
+    --blue:   #48cae4;
+    --dark:   #1a3a4a;
+  }
+
+  body { font-family: 'Nunito', sans-serif; background: var(--sand); overflow-x: hidden; }
+
+  /* ── LANDING ── */
+  .landing {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #48cae4 0%, #90e0ef 60%, #caf0f8 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Waves at bottom */
+  .wave-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    line-height: 0;
+  }
+  .wave-bottom svg { display: block; width: 100%; }
+
+  /* Floating critters */
+  .critter { position: absolute; font-size: 2.5rem; animation: float ease-in-out infinite; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50%       { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  .landing-content { text-align: center; z-index: 1; padding: 2rem; }
+
+  .big-one {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(5rem, 18vw, 12rem);
+    color: white;
+    text-shadow: 4px 6px 0 var(--coral), 8px 12px 0 rgba(255,123,107,0.3);
+    line-height: 1;
+    display: block;
+  }
+
+  .landing-content h1 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 4.5vw, 2.6rem);
+    white-space: nowrap;
+    color: var(--dark);
+    margin-top: -0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .landing-content p {
+    font-size: 1rem;
+    color: var(--dark);
+    opacity: 0.7;
+    margin-top: 0.5rem;
+  }
+
+  .cta-btn {
+    margin-top: 2.5rem;
+    padding: 1rem 2.5rem;
+    background: var(--coral);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #d45f4f, 0 8px 20px rgba(255,123,107,0.4);
+    transition: all 0.15s;
+    letter-spacing: 0.03em;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #d45f4f, 0 12px 24px rgba(255,123,107,0.4); }
+  .cta-btn:active { transform: translateY(2px); box-shadow: 0 4px 0 #d45f4f; }
+
+  /* ── INVITE ── */
+  .invite {
+    background: linear-gradient(180deg, #caf0f8 0%, #90e0ef 30%, #48cae4 100%);
+    padding: 4rem 1rem 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .invite-card {
+    max-width: 560px;
+    width: 100%;
+    background: white;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(72,202,228,0.3);
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+  .card-header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: 0; right: 0;
+    height: 40px;
+    background: white;
+    border-radius: 50% 50% 0 0 / 40px 40px 0 0;
+  }
+
+  .header-emoji { font-size: 3rem; display: block; margin-bottom: 0.5rem; }
+
+  .card-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    white-space: nowrap;
+    color: white;
+    text-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+    letter-spacing: 0.02em;
+  }
+  .card-header p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  .card-body { padding: 3rem 2.5rem 2.5rem; }
+
+  .poem-box {
+    background: #fff0f8;
+    border: 2px dashed var(--purple);
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.9;
+    text-align: center;
+  }
+
+  .details-grid { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .detail-chip {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #f0fbff;
+    border-radius: 16px;
+    padding: 0.9rem 1.2rem;
+  }
+  .chip-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .chip-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--teal); font-weight: 700; }
+  .chip-value { font-size: 1rem; color: var(--dark); font-weight: 600; }
+
+  .card-footer {
+    text-align: center;
+    padding: 1.5rem 2rem;
+    border-top: 2px dashed rgba(72,202,228,0.3);
+    font-size: 1.3rem;
+  }
+
+  .label-design { margin-top: 2rem; font-size: 0.75rem; color: rgba(30,60,80,0.4); letter-spacing: 0.1em; font-family: monospace; }
+</style>
+</head>
+<body>
+
+<!-- ── LANDING ── -->
+<section class="landing">
+  <!-- Floating critters -->
+  <span class="critter" style="top:10%;left:5%;animation-duration:4s">🐠</span>
+  <span class="critter" style="top:20%;right:8%;animation-duration:5s;animation-delay:1s">⭐</span>
+  <span class="critter" style="top:60%;left:3%;animation-duration:6s;animation-delay:2s">🐚</span>
+  <span class="critter" style="top:15%;left:40%;animation-duration:3.5s;animation-delay:0.5s">🫧</span>
+  <span class="critter" style="top:70%;right:5%;animation-duration:5s;animation-delay:1.5s">🐙</span>
+  <span class="critter" style="top:40%;right:15%;animation-duration:4.5s;animation-delay:0.8s">🧜‍♀️</span>
+
+  <div class="landing-content">
+    <span class="big-one">1</span>
+    <h1>Dia is Turning One!</h1>
+    <p>🌊 You're invited to a splashing good time 🌊</p>
+    <button class="cta-btn">See the Invite 🐡</button>
+  </div>
+
+  <div class="wave-bottom">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#caf0f8" d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,30 1440,40 L1440,80 L0,80 Z"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ── INVITE ── -->
+<section class="invite">
+  <div class="invite-card">
+    <div class="card-header">
+      <span class="header-emoji">🧜‍♀️🐠🌊</span>
+      <h2>One-der the Sea</h2>
+      <p>Dia's First Birthday</p>
+    </div>
+
+    <div class="card-body">
+      <div class="poem-box">
+        🐚 Down below where the bright fishies play,<br>
+        Starfish and seahorses dance through the day.<br>
+        Little Dia turns <em>one</em> with a splash,<br>
+        Come join the wonder — make memories last! 🌊
+      </div>
+
+      <div class="details-grid">
+        <div class="detail-chip">
+          <span class="chip-icon">🎂</span>
+          <div>
+            <div class="chip-label">Birthday Star</div>
+            <div class="chip-value">Dia Dange</div>
+          </div>
+        </div>
+        <div class="detail-chip">
+          <span class="chip-icon">📅</span>
+          <div>
+            <div class="chip-label">Date</div>
+            <div class="chip-value">Friday, June 20, 2025</div>
+          </div>
+        </div>
+        <div class="detail-chip">
+          <span class="chip-icon">⏰</span>
+          <div>
+            <div class="chip-label">Time</div>
+            <div class="chip-value">1:00 PM</div>
+          </div>
+        </div>
+        <div class="detail-chip">
+          <span class="chip-icon">📍</span>
+          <div>
+            <div class="chip-label">Location</div>
+            <div class="chip-value">327 E Foster St, Melrose</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">🐠 🌟 🐚 🪸 🐡 🦀 🌊</div>
+  </div>
+  <p class="label-design">— CONCEPT 2: CORAL WONDERLAND —</p>
+</section>
+
+</body>
+</html>

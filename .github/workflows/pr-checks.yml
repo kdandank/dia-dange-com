@@ -1,0 +1,29 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run content validation tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Run spell check (advisory)
+        run: |
+          codespell index.html first-birthday/index.html \
+            --ignore-words .codespell-ignore || true

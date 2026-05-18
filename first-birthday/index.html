@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dia's First Birthday — One-der the Sea</title>
+  <meta name="description" content="You're invited to Dia Dange's first birthday party — One-der the Sea!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --aqua:  #7ecbca;
+      --gold:  #d4a843;
+      --dark:  #2d4a5a;
+      --card:  #ffffff;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Quicksand', sans-serif;
+      color: var(--dark);
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 30% 15%, rgba(168,218,220,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 85%, rgba(255,180,194,0.3)  0%, transparent 55%),
+        linear-gradient(160deg, #e8f7f8 0%, #f5e6ff 50%, #e0f4f4 100%);
+      background-attachment: fixed;
+    }
+
+    /* ── Sparkles ── */
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      animation: twinkle ease-in-out infinite;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0;    transform: scale(0.5) rotate(0deg); }
+      50%       { opacity: 0.55; transform: scale(1)   rotate(20deg); }
+    }
+
+    /* ── Background deco ── */
+    .bg-deco {
+      position: fixed;
+      font-size: clamp(4rem, 11vw, 9rem);
+      opacity: 0.07;
+      animation: drift ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+    }
+    @keyframes drift {
+      0%, 100% { transform: rotate(-8deg) scale(1); }
+      50%       { transform: rotate(8deg)  scale(1.05); }
+    }
+
+    /* ── Page layout ── */
+    .page {
+      min-height: 100svh;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .invite-card {
+      max-width: 520px;
+      width: 100%;
+    }
+
+    /* ── Header ── */
+    .invite-header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .emoji-row {
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.8rem;
+      display: block;
+      /* Prevent letter-spacing from causing overflow on very small screens */
+      overflow: hidden;
+    }
+
+    .invite-header h1 {
+      font-family: 'Cinzel Decorative', serif;
+      /* Allow natural wrapping — Cinzel is wide, nowrap risks overflow on 320px */
+      font-size: clamp(1.5rem, 6vw, 2.8rem);
+      color: var(--dark);
+      line-height: 1.25;
+    }
+    .invite-header h1 em {
+      color: var(--aqua);
+      font-style: normal;
+    }
+
+    .subtitle {
+      font-size: clamp(0.7rem, 2.5vw, 0.82rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    /* ── Poem card ── */
+    .poem-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 1.8rem 1.5rem 1.5rem;
+      box-shadow: 0 4px 24px rgba(126,203,202,0.18);
+      margin-bottom: 1rem;
+      font-size: clamp(0.85rem, 3vw, 1rem);
+      line-height: 2;
+      color: #5a7080;
+      text-align: center;
+      position: relative;
+    }
+    .poem-card::before {
+      content: '🐚';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+    }
+    /* On narrow phones, swap explicit line-breaks for natural wrapping */
+    @media (max-width: 380px) {
+      .poem-card br { display: none; }
+      .poem-card { line-height: 1.9; }
+    }
+
+    /* ── Details list ── */
+    .details-list {
+      display: flex;
+      flex-direction: column;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(126,203,202,0.18);
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 0.8rem;
+      align-items: center;
+      padding: 1rem 1.2rem;
+      background: var(--card);
+      border-bottom: 1px solid rgba(126,203,202,0.15);
+      /* Minimum 44px touch height */
+      min-height: 44px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+
+    .row-icon {
+      font-size: 1.3rem;
+      text-align: center;
+    }
+
+    .row-label {
+      font-size: clamp(0.62rem, 2vw, 0.68rem);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--aqua);
+      font-weight: 600;
+    }
+
+    .row-value {
+      font-size: clamp(0.88rem, 3.5vw, 1rem);
+      color: var(--dark);
+      font-weight: 600;
+      margin-top: 0.1rem;
+    }
+
+    /* ── Footer emoji row ── */
+    .footer-row {
+      text-align: center;
+      margin-top: 1.8rem;
+      font-size: clamp(1.1rem, 4vw, 1.5rem);
+      letter-spacing: 0.25em;
+      opacity: 0.45;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background deco — corners only -->
+<span class="bg-deco" style="top:-1%;left:-2%;animation-duration:9s">🐚</span>
+<span class="bg-deco" style="bottom:-1%;right:-2%;animation-duration:11s;animation-delay:2s">🦀</span>
+<span class="bg-deco" style="bottom:2%;left:5%;animation-duration:10s;animation-delay:1s">⭐</span>
+<span class="bg-deco" style="top:3%;right:0%;animation-duration:8s;animation-delay:3s">🌊</span>
+
+<div id="sparkles"></div>
+
+<main class="page">
+  <div class="invite-card">
+
+    <div class="invite-header">
+      <span class="emoji-row">🧜‍♀️ 🐠 🌊 🐚 ⭐</span>
+      <h1><em>One-der</em> the Sea</h1>
+      <p class="subtitle">Dia's First Birthday Celebration</p>
+    </div>
+
+    <div class="poem-card">
+      Down below where the bright fishies play,<br>
+      Starfish and seahorses dance through the day.<br>
+      Little Dia turns <em>one</em> with a splash —<br>
+      Come join the wonder, make memories last! 🌊
+    </div>
+
+    <div class="details-list">
+      <div class="detail-row">
+        <span class="row-icon">🎂</span>
+        <div>
+          <div class="row-label">Birthday Star</div>
+          <div class="row-value">Dia Dange — She's turning 1!</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <span class="row-icon">📅</span>
+        <div>
+          <div class="row-label">Date</div>
+          <div class="row-value">Friday, June 20, 2025</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <span class="row-icon">⏰</span>
+        <div>
+          <div class="row-label">Time</div>
+          <div class="row-value">1:00 PM</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <span class="row-icon">📍</span>
+        <div>
+          <div class="row-label">Location</div>
+          <div class="row-value">327 E Foster St, Melrose</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-row">🐠 🌟 🐚 🪸 🐡 🦀 🌊</div>
+
+  </div>
+</main>
+
+<script>
+  const container = document.getElementById('sparkles');
+  const icons = ['✨','⭐','🌟','💫'];
+  for (let i = 0; i < 14; i++) {
+    const s = document.createElement('span');
+    s.className = 'sparkle';
+    s.textContent = icons[Math.floor(Math.random() * icons.length)];
+    s.style.cssText = `
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      font-size:${Math.random()*0.7+0.6}rem;
+      animation-duration:${Math.random()*3+2}s;
+      animation-delay:${Math.random()*6}s;
+    `;
+    container.appendChild(s);
+  }
+</script>
+
+</body>
+</html>
