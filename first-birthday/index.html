@@ -411,6 +411,22 @@
 
     .modal-box { max-height: 90svh; max-height: 90vh; overflow-y: auto; }
 
+    /* ── Floating critters ── */
+    .critter {
+      position: absolute;
+      animation: float ease-in-out infinite;
+      pointer-events: none;
+      user-select: none;
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+    }
+    @media (max-width: 480px) {
+      .critter.hide-mobile { display: none; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0)     rotate(-5deg); }
+      50%       { transform: translateY(-14px) rotate(5deg); }
+    }
+
     /* ── Footer emoji row ── */
     .footer-row {
       text-align: center;
@@ -433,6 +449,13 @@
 <div id="sparkles"></div>
 
 <main class="page">
+  <span class="critter" style="top:6%;left:3%;animation-duration:4s">🐠</span>
+  <span class="critter" style="top:8%;right:4%;animation-duration:5.2s;animation-delay:1s">🧜‍♀️</span>
+  <span class="critter" style="bottom:12%;left:4%;animation-duration:6s;animation-delay:2s">🐡</span>
+  <span class="critter" style="bottom:10%;right:3%;animation-duration:4.8s;animation-delay:1.5s">🐙</span>
+  <span class="critter hide-mobile" style="top:30%;left:2%;animation-duration:5s;animation-delay:.5s">🐚</span>
+  <span class="critter hide-mobile" style="top:35%;right:2%;animation-duration:4.5s;animation-delay:2.5s">⭐</span>
+
   <div class="invite-card">
 
     <div class="invite-header">

@@ -152,6 +152,22 @@
     .back-link:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #7a54a8; }
     .back-link:active { transform: translateY(2px);  box-shadow: 0 2px 0 #7a54a8; }
 
+    /* ── Floating critters ── */
+    .critter {
+      position: absolute;
+      animation: float ease-in-out infinite;
+      pointer-events: none;
+      user-select: none;
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+    }
+    @media (max-width: 480px) {
+      .critter.hide-mobile { display: none; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0)     rotate(-5deg); }
+      50%       { transform: translateY(-14px) rotate(5deg); }
+    }
+
     .footer-row {
       text-align: center;
       margin-top: 2rem;
@@ -167,6 +183,12 @@
 <div id="sparkles"></div>
 
 <main class="page">
+  <span class="critter" style="top:6%;left:3%;animation-duration:4s">🐠</span>
+  <span class="critter" style="top:8%;right:4%;animation-duration:5.2s;animation-delay:1s">🧜‍♀️</span>
+  <span class="critter" style="bottom:12%;left:4%;animation-duration:6s;animation-delay:2s">🐡</span>
+  <span class="critter" style="bottom:10%;right:3%;animation-duration:4.8s;animation-delay:1.5s">🐙</span>
+  <span class="critter hide-mobile" style="top:30%;left:2%;animation-duration:5s;animation-delay:.5s">🐚</span>
+  <span class="critter hide-mobile" style="top:35%;right:2%;animation-duration:4.5s;animation-delay:2.5s">⭐</span>
 
   <div class="rsvp-header">
     <span style="font-size:clamp(1.3rem,5vw,2rem);letter-spacing:0.2em;display:block;margin-bottom:0.8rem">🧜‍♀️ 🐠 🌊 🐚 ⭐</span>
