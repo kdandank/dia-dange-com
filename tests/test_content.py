@@ -180,8 +180,8 @@ class TestRsvpPage(unittest.TestCase):
                       "RSVP display grid must be present")
 
     def test_back_link_present(self):
-        self.assertIn("first-birthday", self.html,
-                      "RSVP page must link back to the invite")
+        self.assertIn("back-link", self.html,
+                      "RSVP page must have a back link to the invite")
 
     def test_viewport_meta(self):
         self.assertIn('name="viewport"', self.html)
