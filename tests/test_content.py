@@ -12,10 +12,11 @@ Run:  python3 -m unittest tests.test_content -v
 import os
 import unittest
 
-ROOT   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT    = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LANDING = os.path.join(ROOT, "index.html")
 INVITE  = os.path.join(ROOT, "first-birthday", "index.html")
 ICS     = os.path.join(ROOT, "first-birthday", "dia-birthday.ics")
+RSVP    = os.path.join(ROOT, "first-birthday", "rsvp", "index.html")
 
 
 def read(path):
@@ -108,6 +109,18 @@ class TestInvitePage(unittest.TestCase):
         self.assertIn("waze.com", self.html,
                       "Waze link must be in the navigate modal")
 
+    def test_rsvp_button_present(self):
+        self.assertIn("btn-rsvp", self.html,
+                      "RSVP button must be present on the invite page")
+
+    def test_rsvp_modal_present(self):
+        self.assertIn("rsvp-modal", self.html,
+                      "RSVP modal must be present on the invite page")
+
+    def test_rsvp_form_fields(self):
+        self.assertIn("rsvp-name", self.html, "RSVP form must have a name field")
+        self.assertIn("rsvp-message", self.html, "RSVP form must have a message field")
+
     def test_viewport_meta(self):
         self.assertIn('name="viewport"', self.html)
 
@@ -148,6 +161,35 @@ class TestCalendarFile(unittest.TestCase):
     def test_ics_summary(self):
         self.assertIn("SUMMARY:", self.ics,
                       "ICS must have a SUMMARY field")
+
+
+class TestRsvpPage(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = read(RSVP)
+
+    def test_file_exists(self):
+        self.assertTrue(os.path.isfile(RSVP), "rsvp/index.html is missing")
+
+    def test_has_title(self):
+        self.assertIn("<title>", self.html)
+
+    def test_rsvp_grid_present(self):
+        self.assertIn("rsvp-grid", self.html,
+                      "RSVP display grid must be present")
+
+    def test_back_link_present(self):
+        self.assertIn("back-link", self.html,
+                      "RSVP page must have a back link to the invite")
+
+    def test_viewport_meta(self):
+        self.assertIn('name="viewport"', self.html)
+
+    def test_no_placeholder_text(self):
+        for placeholder in ["TODO", "FIXME", "Lorem ipsum"]:
+            self.assertNotIn(placeholder, self.html,
+                             f"Found placeholder text: {placeholder!r}")
 
 
 if __name__ == "__main__":

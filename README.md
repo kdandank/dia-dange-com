@@ -9,10 +9,13 @@ Live at [diadange.com](https://diadange.com).
 ## Site structure
 
 ```
-index.html                      ← diadange.com           (landing page)
+index.html                      ← diadange.com                      (landing page)
 first-birthday/
-  index.html                    ← diadange.com/first-birthday  (invite)
+  index.html                    ← diadange.com/first-birthday       (invite + RSVP form)
   dia-birthday.ics              ← calendar event download
+  google-apps-script.js         ← Apps Script source for RSVP backend (reference only)
+  rsvp/
+    index.html                  ← diadange.com/first-birthday/rsvp  (RSVP guest list)
 CNAME                           ← custom domain for GitHub Pages
 LICENSE                         ← MIT
 .gitignore
@@ -97,6 +100,43 @@ To add a word to the spell-check ignore list:
 ```bash
 echo "YourWord" >> .codespell-ignore
 ```
+
+---
+
+## RSVP setup (Google Sheets + Apps Script)
+
+The RSVP form POSTs to a Google Apps Script web app, which writes rows to a Google Sheet. The RSVP display page (`/rsvp`) GETs from the same endpoint.
+
+### 1. Create the Google Sheet
+
+1. Go to [sheets.google.com](https://sheets.google.com) → create a new sheet
+2. Rename the first tab to **RSVPs**
+3. In row 1, add these headers exactly:
+
+   | A | B | C | D | E | F |
+   |---|---|---|---|---|---|
+   | Timestamp | Attending | Name | Plus Ones | Phone | Message |
+
+### 2. Create the Apps Script
+
+1. In the Sheet: **Extensions → Apps Script**
+2. Delete the default code and paste the contents of [`first-birthday/google-apps-script.js`](first-birthday/google-apps-script.js)
+3. Save the project (name it anything)
+
+### 3. Deploy as a Web App
+
+1. **Deploy → New deployment**
+2. Type: **Web app**
+3. Execute as: **Me**
+4. Who has access: **Anyone**
+5. Click **Deploy** → copy the URL
+
+### 4. Wire up the URL
+
+Paste the URL into both files, replacing `PASTE_YOUR_APPS_SCRIPT_URL_HERE`:
+
+- [`first-birthday/index.html`](first-birthday/index.html) — `SCRIPT_URL` in the `<script>` block
+- [`first-birthday/rsvp/index.html`](first-birthday/rsvp/index.html) — `SCRIPT_URL` in the `<script>` block
 
 ---
 

@@ -305,6 +305,128 @@
     }
     .modal-cancel:hover { color: var(--dark); }
 
+    /* ── RSVP button ── */
+    .btn-rsvp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.9rem 1rem;
+      min-height: 52px;
+      border-radius: 50px;
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(0.85rem, 3.5vw, 1rem);
+      color: white;
+      background: #ff7b6b;
+      box-shadow: 0 4px 0 #e05a4a, 0 6px 16px rgba(255,123,107,0.35);
+      border: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-rsvp:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #e05a4a, 0 10px 20px rgba(255,123,107,0.35); }
+    .btn-rsvp:active { transform: translateY(2px);  box-shadow: 0 2px 0 #e05a4a; }
+
+    /* ── RSVP form ── */
+    .rsvp-form { display: flex; flex-direction: column; gap: 0.85rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+
+    .form-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: #9b72cf;
+    }
+
+    .optional-note {
+      font-size: 0.62rem;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .form-input, .form-textarea {
+      font-family: 'Pacifico', cursive;
+      font-size: 1rem;
+      color: var(--dark);
+      border: 2px solid rgba(155,114,207,0.25);
+      border-radius: 12px;
+      padding: 0.65rem 0.85rem;
+      background: #faf8ff;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: #9b72cf; }
+    .form-textarea { resize: vertical; min-height: 76px; }
+
+    .radio-row { display: flex; gap: 0.75rem; }
+
+    .radio-option { flex: 1; position: relative; }
+    .radio-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.7rem;
+      border-radius: 12px;
+      border: 2px solid rgba(155,114,207,0.25);
+      background: #faf8ff;
+      font-family: 'Pacifico', cursive;
+      font-size: 0.88rem;
+      color: var(--dark);
+      cursor: pointer;
+      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .radio-option input[type="radio"]:checked + .radio-label {
+      background: #ff7b6b;
+      border-color: #ff7b6b;
+      color: white;
+    }
+
+    .btn-rsvp-submit {
+      margin-top: 0.25rem;
+      padding: 0.9rem;
+      min-height: 52px;
+      border-radius: 50px;
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(0.85rem, 3.5vw, 1rem);
+      color: white;
+      background: #ff7b6b;
+      box-shadow: 0 4px 0 #e05a4a;
+      border: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s, box-shadow 0.15s;
+      width: 100%;
+    }
+    .btn-rsvp-submit:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #e05a4a; }
+    .btn-rsvp-submit:active { transform: translateY(2px);  box-shadow: 0 2px 0 #e05a4a; }
+    .btn-rsvp-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: 0 4px 0 #e05a4a; }
+
+    .modal-box { max-height: 90svh; max-height: 90vh; overflow-y: auto; }
+
+    /* ── Floating critters ── */
+    .critter {
+      position: absolute;
+      animation: float ease-in-out infinite;
+      pointer-events: none;
+      user-select: none;
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+    }
+    @media (max-width: 480px) {
+      .critter.hide-mobile { display: none; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0)     rotate(-5deg); }
+      50%       { transform: translateY(-14px) rotate(5deg); }
+    }
+
     /* ── Footer emoji row ── */
     .footer-row {
       text-align: center;
@@ -327,6 +449,13 @@
 <div id="sparkles"></div>
 
 <main class="page">
+  <span class="critter" style="top:6%;left:3%;animation-duration:4s">🐠</span>
+  <span class="critter" style="top:8%;right:4%;animation-duration:5.2s;animation-delay:1s">🧜‍♀️</span>
+  <span class="critter" style="bottom:12%;left:4%;animation-duration:6s;animation-delay:2s">🐡</span>
+  <span class="critter" style="bottom:10%;right:3%;animation-duration:4.8s;animation-delay:1.5s">🐙</span>
+  <span class="critter hide-mobile" style="top:30%;left:2%;animation-duration:5s;animation-delay:.5s">🐚</span>
+  <span class="critter hide-mobile" style="top:35%;right:2%;animation-duration:4.5s;animation-delay:2.5s">⭐</span>
+
   <div class="invite-card">
 
     <div class="invite-header">
@@ -376,6 +505,14 @@
       </div>
     </div>
 
+    <button onclick="document.getElementById('rsvp-modal').removeAttribute('hidden')" class="btn-rsvp">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 9 C5 6, 8 12, 12 9 C16 6, 19 12, 22 9"/>
+        <path d="M2 15 C5 12, 8 18, 12 15 C16 12, 19 18, 22 15"/>
+      </svg>
+      RSVP
+    </button>
+
     <div class="action-buttons">
       <a href="dia-birthday.ics" download class="action-btn btn-calendar">
         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -399,6 +536,52 @@
 
   </div>
 </main>
+
+<!-- RSVP modal -->
+<div id="rsvp-modal" class="modal-overlay" hidden>
+  <div class="modal-box">
+    <p class="modal-title">Will you be there? 🌊</p>
+    <form class="rsvp-form" id="rsvp-form">
+      <div class="form-group">
+        <div class="radio-row">
+          <label class="radio-option">
+            <input type="radio" name="attending" value="yes" checked>
+            <span class="radio-label">🌊 Yes!</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="attending" value="no">
+            <span class="radio-label">🐚 No</span>
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <span class="form-label">Name *</span>
+        <input type="text" class="form-input" id="rsvp-name" required placeholder="Your name" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <span class="form-label">Plus Ones <span class="optional-note">optional · max 5</span></span>
+        <select class="form-input" id="rsvp-plusones">
+          <option value="0">Just me</option>
+          <option value="1">+ 1</option>
+          <option value="2">+ 2</option>
+          <option value="3">+ 3</option>
+          <option value="4">+ 4</option>
+          <option value="5">+ 5</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <span class="form-label">Phone <span class="optional-note">optional</span></span>
+        <input type="tel" class="form-input" id="rsvp-phone" placeholder="(555) 000-0000" autocomplete="tel">
+      </div>
+      <div class="form-group">
+        <span class="form-label">Message for Dia <span class="optional-note">optional</span></span>
+        <textarea class="form-textarea" id="rsvp-message" placeholder="Leave a little note for Dia 🐚"></textarea>
+      </div>
+      <button type="submit" class="btn-rsvp-submit" id="rsvp-submit">Send RSVP 🌊</button>
+    </form>
+    <button class="modal-cancel" onclick="document.getElementById('rsvp-modal').setAttribute('hidden','')">Cancel</button>
+  </div>
+</div>
 
 <!-- Navigate modal -->
 <div id="nav-modal" class="modal-overlay" hidden>
@@ -431,6 +614,57 @@
 </div>
 
 <script>
+  // Replace with your deployed Google Apps Script URL
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkdNxF7yoooyBmgwkUvOU3EWtj02366-l2MTQq2H_gEjqwTPaRcRoh0GuJiVF_yVsA/exec';
+
+  document.getElementById('rsvp-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.setAttribute('hidden', '');
+  });
+
+  document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('rsvp-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const data = {
+      attending: document.querySelector('input[name="attending"]:checked').value,
+      name: document.getElementById('rsvp-name').value.trim(),
+      plusOnes: document.getElementById('rsvp-plusones').value,
+      phone: document.getElementById('rsvp-phone').value.trim(),
+      message: document.getElementById('rsvp-message').value.trim(),
+    };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify(data),
+    }).catch(() => {});
+
+    const yes = data.attending === 'yes';
+    setTimeout(() => {
+      document.getElementById('rsvp-form').innerHTML = yes ? `
+        <div style="text-align:center;padding:1rem 0">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem">🐠</div>
+          <div style="font-size:1.1rem;color:var(--dark);margin-bottom:0.4rem">You're in!</div>
+          <div style="font-size:0.8rem;color:#9b72cf;margin-bottom:1.5rem">See you June 20 🌊</div>
+          <a href="rsvp/" style="display:inline-block;padding:0.75rem 1.75rem;background:#9b72cf;color:white;border-radius:50px;font-family:'Pacifico',cursive;font-size:0.85rem;text-decoration:none;box-shadow:0 4px 0 #7a54a8">
+            See who's coming 🐚
+          </a>
+        </div>
+      ` : `
+        <div style="text-align:center;padding:1rem 0">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem">🌊</div>
+          <div style="font-size:1.1rem;color:var(--dark);margin-bottom:0.4rem">Sorry you can't make it!</div>
+          <div style="font-size:0.8rem;color:#9b72cf;margin-bottom:1.5rem">Dia will miss you — the ocean won't be the same 🐚</div>
+          <a href="rsvp/" style="display:inline-block;padding:0.75rem 1.75rem;background:#9b72cf;color:white;border-radius:50px;font-family:'Pacifico',cursive;font-size:0.85rem;text-decoration:none;box-shadow:0 4px 0 #7a54a8">
+            See who's coming 🐚
+          </a>
+        </div>
+      `;
+    }, 800);
+  });
+
   document.getElementById('nav-modal').addEventListener('click', function(e) {
     if (e.target === this) this.setAttribute('hidden', '');
   });
