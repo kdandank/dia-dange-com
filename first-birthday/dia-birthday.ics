@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//diadange.com//Birthday//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20250620T130000
+DTEND;TZID=America/New_York:20250620T160000
+SUMMARY:Dia's First Birthday - One-der the Sea
+LOCATION:327 E Foster St\, Melrose\, MA
+DESCRIPTION:You're invited to Dia Dange's first birthday party!\nTheme: One-der the Sea\nCome celebrate with us!
+END:VEVENT
+END:VCALENDAR

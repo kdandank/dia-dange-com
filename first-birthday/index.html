@@ -7,20 +7,20 @@
   <meta name="description" content="You're invited to Dia Dange's first birthday party — One-der the Sea!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --aqua:  #7ecbca;
       --gold:  #d4a843;
-      --dark:  #2d4a5a;
+      --dark:  #1a3a6e;
       --card:  #ffffff;
     }
 
     html, body {
       min-height: 100%;
-      font-family: 'Quicksand', sans-serif;
+      font-family: 'Pacifico', cursive;
       color: var(--dark);
     }
 
@@ -94,24 +94,21 @@
     }
 
     .invite-header h1 {
-      font-family: 'Cinzel Decorative', serif;
-      /* Allow natural wrapping — Cinzel is wide, nowrap risks overflow on 320px */
+      font-family: 'Pacifico', cursive;
       font-size: clamp(1.5rem, 6vw, 2.8rem);
       color: var(--dark);
       line-height: 1.25;
     }
     .invite-header h1 em {
-      color: var(--aqua);
+      color: #ff7b6b;
       font-style: normal;
     }
 
     .subtitle {
-      font-size: clamp(0.7rem, 2.5vw, 0.82rem);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
+      font-size: clamp(0.8rem, 2.8vw, 0.95rem);
+      letter-spacing: 0.08em;
+      color: #9b72cf;
       margin-top: 0.5rem;
-      font-weight: 600;
     }
 
     /* ── Poem card ── */
@@ -123,7 +120,7 @@
       margin-bottom: 1rem;
       font-size: clamp(0.85rem, 3vw, 1rem);
       line-height: 2;
-      color: #5a7080;
+      color: var(--dark);
       text-align: center;
       position: relative;
     }
@@ -151,37 +148,162 @@
     }
 
     .detail-row {
-      display: grid;
-      grid-template-columns: 40px 1fr;
-      gap: 0.8rem;
+      display: flex;
+      flex-direction: row;
       align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
       padding: 1rem 1.2rem;
       background: var(--card);
-      border-bottom: 1px solid rgba(126,203,202,0.15);
-      /* Minimum 44px touch height */
+      border-bottom: 1px solid rgba(155,114,207,0.12);
       min-height: 44px;
     }
     .detail-row:last-child { border-bottom: none; }
 
     .row-icon {
-      font-size: 1.3rem;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .row-icon svg {
+      width: 28px;
+      height: 28px;
     }
 
     .row-label {
-      font-size: clamp(0.62rem, 2vw, 0.68rem);
+      font-size: clamp(0.6rem, 2vw, 0.7rem);
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--aqua);
+      letter-spacing: 0.15em;
+      color: #ff7b6b;
       font-weight: 600;
+      flex-shrink: 0;
+      line-height: 1;
+      align-self: center;
     }
 
     .row-value {
       font-size: clamp(0.88rem, 3.5vw, 1rem);
       color: var(--dark);
-      font-weight: 600;
-      margin-top: 0.1rem;
+      flex: 1;
+      line-height: 1;
+      align-self: center;
     }
+
+    /* ── Action buttons ── */
+    .action-buttons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.2rem;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.85rem 0.75rem;
+      min-height: 48px;
+      border-radius: 50px;
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(0.72rem, 3vw, 0.85rem);
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-calendar {
+      background: #9b72cf;
+      color: white;
+      box-shadow: 0 4px 0 #7a54a8, 0 6px 16px rgba(155,114,207,0.3);
+    }
+    .btn-calendar:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #7a54a8, 0 10px 20px rgba(155,114,207,0.3); }
+    .btn-calendar:active { transform: translateY(2px);  box-shadow: 0 2px 0 #7a54a8; }
+
+    .btn-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+    .btn-navigate {
+      background: #9b72cf;
+      color: white;
+      box-shadow: 0 4px 0 #7a54a8, 0 6px 16px rgba(155,114,207,0.3);
+    }
+    .btn-navigate:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #7a54a8, 0 10px 20px rgba(155,114,207,0.3); }
+    .btn-navigate:active { transform: translateY(2px);  box-shadow: 0 2px 0 #7a54a8; }
+
+    /* ── Modal (bottom sheet) ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(45,74,90,0.45);
+      z-index: 100;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+    .modal-overlay[hidden] { display: none; }
+
+    .modal-box {
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem 1.2rem 1.2rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 -4px 40px rgba(45,74,90,0.12);
+    }
+
+    .modal-title {
+      font-size: 1rem;
+      color: var(--dark);
+      text-align: center;
+      margin-bottom: 1rem;
+      opacity: 0.6;
+    }
+
+    .modal-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 14px;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(0.82rem, 3vw, 0.92rem);
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      background: #f5f0ff;
+      color: var(--dark);
+      transition: background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .modal-option:hover { background: #ece4ff; }
+    .modal-option:active { background: #ddd0ff; }
+
+    .modal-option-icon { font-size: 1.2rem; }
+
+    .modal-cancel {
+      display: block;
+      width: 100%;
+      margin-top: 0.6rem;
+      padding: 0.7rem;
+      background: transparent;
+      border: none;
+      color: #aaa;
+      font-family: 'Pacifico', cursive;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: center;
+      border-radius: 14px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .modal-cancel:hover { color: var(--dark); }
 
     /* ── Footer emoji row ── */
     .footer-row {
@@ -222,33 +344,55 @@
 
     <div class="details-list">
       <div class="detail-row">
-        <span class="row-icon">🎂</span>
-        <div>
-          <div class="row-label">Birthday Star</div>
-          <div class="row-value">Dia Dange — She's turning 1!</div>
-        </div>
+        <span class="row-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9b72cf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3C17.5 3 21 7 21 12C21 17 17 21 12 21C7 21 3 17 3 12C3 8 6 5.5 9.5 5.5C12.5 5.5 15 8 15 11C15 13.5 13.2 15 11 15C9.2 15 8 13.8 8 12.3C8 11 9 10 10.5 10"/>
+            <circle cx="10.5" cy="11" r="1" fill="#9b72cf" stroke="none"/>
+          </svg>
+        </span>
+        <span class="row-label">Date</span>
+        <span class="row-value">Friday, June 20, 2025</span>
       </div>
       <div class="detail-row">
-        <span class="row-icon">📅</span>
-        <div>
-          <div class="row-label">Date</div>
-          <div class="row-value">Friday, June 20, 2025</div>
-        </div>
+        <span class="row-icon">
+          <svg viewBox="0 0 24 24">
+            <polygon points="12,2 14.4,8.8 21.5,8.9 15.8,13.2 17.9,20.1 12,16 6.1,20.1 8.2,13.2 2.5,8.9 9.6,8.8" fill="#9b72cf"/>
+          </svg>
+        </span>
+        <span class="row-label">Time</span>
+        <span class="row-value">1:00 PM</span>
       </div>
       <div class="detail-row">
-        <span class="row-icon">⏰</span>
-        <div>
-          <div class="row-label">Time</div>
-          <div class="row-value">1:00 PM</div>
-        </div>
+        <span class="row-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9b72cf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5" r="2.5"/>
+            <line x1="12" y1="7.5" x2="12" y2="20"/>
+            <line x1="7" y1="11" x2="17" y2="11"/>
+            <path d="M7 20 C7 22.5 10 23.5 12 21.5 C14 23.5 17 22.5 17 20"/>
+          </svg>
+        </span>
+        <span class="row-label">Location</span>
+        <span class="row-value">327 E Foster St, Melrose</span>
       </div>
-      <div class="detail-row">
-        <span class="row-icon">📍</span>
-        <div>
-          <div class="row-label">Location</div>
-          <div class="row-value">327 E Foster St, Melrose</div>
-        </div>
-      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a href="dia-birthday.ics" download class="action-btn btn-calendar">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3C17.5 3 21 7 21 12C21 17 17 21 12 21C7 21 3 17 3 12C3 8 6 5.5 9.5 5.5C12.5 5.5 15 8 15 11C15 13.5 13.2 15 11 15C9.2 15 8 13.8 8 12.3C8 11 9 10 10.5 10"/>
+          <circle cx="10.5" cy="11" r="1" fill="white" stroke="none"/>
+        </svg>
+        Add to Calendar
+      </a>
+      <button onclick="document.getElementById('nav-modal').removeAttribute('hidden')" class="action-btn btn-navigate">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="5" r="2.5"/>
+          <line x1="12" y1="7.5" x2="12" y2="20"/>
+          <line x1="7" y1="11" x2="17" y2="11"/>
+          <path d="M7 20 C7 22.5 10 23.5 12 21.5 C14 23.5 17 22.5 17 20"/>
+        </svg>
+        Navigate
+      </button>
     </div>
 
     <div class="footer-row">🐠 🌟 🐚 🪸 🐡 🦀 🌊</div>
@@ -256,7 +400,41 @@
   </div>
 </main>
 
+<!-- Navigate modal -->
+<div id="nav-modal" class="modal-overlay" hidden>
+  <div class="modal-box">
+    <p class="modal-title">Open in Maps</p>
+    <a class="modal-option" href="https://maps.google.com/?q=327+E+Foster+St,+Melrose,+MA" target="_blank" rel="noopener">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="#9b72cf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="5" r="2.5"/>
+        <line x1="12" y1="7.5" x2="12" y2="20"/>
+        <line x1="7" y1="11" x2="17" y2="11"/>
+        <path d="M7 20 C7 22.5 10 23.5 12 21.5 C14 23.5 17 22.5 17 20"/>
+      </svg>
+      Google Maps
+    </a>
+    <a class="modal-option" href="https://maps.apple.com/?daddr=327+E+Foster+St,+Melrose,+MA" target="_blank" rel="noopener">
+      <svg class="btn-icon" viewBox="0 0 24 24">
+        <polygon points="12,2 14.4,8.8 21.5,8.9 15.8,13.2 17.9,20.1 12,16 6.1,20.1 8.2,13.2 2.5,8.9 9.6,8.8" fill="#9b72cf"/>
+      </svg>
+      Apple Maps
+    </a>
+    <a class="modal-option" href="https://waze.com/ul?q=327+E+Foster+St+Melrose+MA" target="_blank" rel="noopener">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="#9b72cf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3C17.5 3 21 7 21 12C21 17 17 21 12 21C7 21 3 17 3 12C3 8 6 5.5 9.5 5.5C12.5 5.5 15 8 15 11C15 13.5 13.2 15 11 15C9.2 15 8 13.8 8 12.3C8 11 9 10 10.5 10"/>
+        <circle cx="10.5" cy="11" r="1" fill="#9b72cf" stroke="none"/>
+      </svg>
+      Waze
+    </a>
+    <button class="modal-cancel" onclick="document.getElementById('nav-modal').setAttribute('hidden','')">Cancel</button>
+  </div>
+</div>
+
 <script>
+  document.getElementById('nav-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.setAttribute('hidden', '');
+  });
+
   const container = document.getElementById('sparkles');
   const icons = ['✨','⭐','🌟','💫'];
   for (let i = 0; i < 14; i++) {

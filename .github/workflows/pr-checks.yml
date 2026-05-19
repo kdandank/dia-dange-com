@@ -20,10 +20,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements-dev.txt
 
-      - name: Run content validation tests
+      - name: Run content & ICS validation tests
         run: python3 -m unittest discover -s tests -v
 
-      - name: Run spell check (advisory)
+      - name: Spell check (advisory)
         run: |
           codespell index.html first-birthday/index.html \
             --ignore-words .codespell-ignore || true

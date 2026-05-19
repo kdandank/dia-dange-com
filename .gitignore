@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Python virtual envs
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Conda
+.conda/
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+
+# Claude Code session files
+.claude/

@@ -9,23 +9,27 @@ Live at [diadange.com](https://diadange.com).
 ## Site structure
 
 ```
-index.html                  ← diadange.com      (landing page)
+index.html                      ← diadange.com           (landing page)
 first-birthday/
-  index.html                ← diadange.com/first-birthday  (invite)
-CNAME                       ← custom domain for GitHub Pages
+  index.html                    ← diadange.com/first-birthday  (invite)
+  dia-birthday.ics              ← calendar event download
+CNAME                           ← custom domain for GitHub Pages
+LICENSE                         ← MIT
+.gitignore
 .github/
   workflows/
-    pr-checks.yml           ← CI: content + spell-check tests on every PR
+    pr-checks.yml               ← CI: content + ICS + spell-check tests on every PR
 tests/
-  test_content.py           ← validates party details, links, structure
-  test_spellcheck.py        ← spell-check (advisory, never fails CI)
+  test_content.py               ← validates party details, links, buttons, ICS, map URLs
+  test_spellcheck.py            ← spell-check (advisory, never fails CI)
 .githooks/
-  post-commit               ← local spell-check after every commit
-.codespell-ignore           ← words excluded from spell check
-requirements-dev.txt        ← codespell
-environment.yml             ← conda environment (dia-birthday)
-setup.sh                    ← one-time local setup
-setup-github.sh             ← one-time GitHub repo configuration
+  post-commit                   ← local spell-check after every commit
+.codespell-ignore               ← words excluded from spell check
+requirements-dev.txt            ← codespell
+environment.yml                 ← conda environment (dia-birthday)
+setup.sh                        ← one-time local setup
+setup-github.sh                 ← one-time GitHub repo configuration
+designs/                        ← design mockups (not part of the live site)
 ```
 
 ---
@@ -63,22 +67,35 @@ python3 -m unittest tests.test_content -v
 python3 -m unittest tests.test_spellcheck -v
 ```
 
-Content tests **fail** if any party detail (date, time, address, theme, link) is missing.  
-Spell-check tests always **pass** but print warnings for any findings.
+**Content tests** fail if any of the following is missing or broken:
+- Party details: date, time, address, theme
+- Landing page link to `/first-birthday`
+- Add to Calendar button linking to `dia-birthday.ics`
+- Navigate modal with Google Maps, Apple Maps, and Waze links
+- ICS file: valid VCALENDAR structure, correct date/time/location
+
+**Spell-check tests** always pass but print warnings for any findings.
 
 ---
 
 ## Editing content
 
-| Page | File |
+| File | What it controls |
 |---|---|
-| Landing (`diadange.com`) | `index.html` |
-| Invite (`diadange.com/first-birthday`) | `first-birthday/index.html` |
+| `index.html` | Landing page (`diadange.com`) |
+| `first-birthday/index.html` | Invite page (`diadange.com/first-birthday`) |
+| `first-birthday/dia-birthday.ics` | Calendar event (date, time, location, title) |
 
-After editing, run the tests to make sure all details are still present:
+After editing, run the tests to make sure all details are still consistent:
 
 ```bash
 python3 -m unittest discover -s tests -v
+```
+
+To add a word to the spell-check ignore list:
+
+```bash
+echo "YourWord" >> .codespell-ignore
 ```
 
 ---
@@ -102,11 +119,9 @@ git push -u origin main
 # e.g. ./setup-github.sh kdandank/dia-dange-com
 ```
 
-### 3. Enable GitHub Pages
+This sets squash-merge-only, branch protection on `main`, and enables GitHub Pages.
 
-In the GitHub repo: **Settings → Pages → Source → Deploy from branch → main / root**.
-
-### 4. Point diadange.com to GitHub Pages
+### 3. Point diadange.com to GitHub Pages
 
 In **WordPress.com → Domains → DNS Records** for `diadange.com`, add:
 
@@ -118,14 +133,6 @@ In **WordPress.com → Domains → DNS Records** for `diadange.com`, add:
 | A | @ | 185.199.111.153 |
 | CNAME | www | diadange.com |
 
-Then in GitHub: **Settings → Pages → Custom domain → `diadange.com`** and check **Enforce HTTPS** once verified.
+Then in GitHub: **Settings → Pages → Custom domain → `diadange.com`** and enable **Enforce HTTPS** once the domain is verified.
 
 DNS propagation typically takes a few minutes to a few hours.
-
----
-
-## Adding a word to the spell-check ignore list
-
-```bash
-echo "YourWord" >> .codespell-ignore
-```
