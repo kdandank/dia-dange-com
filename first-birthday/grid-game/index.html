@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid Game — Dia's First Birthday</title>
+  <meta name="description" content="Play the grid game for Dia Dange's first birthday — One-der the Sea!">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧜‍♀️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --coral:    #ff7b6b;
+      --lavender: #9b72cf;
+      --dark:     #1a3a6e;
+      --card:     #ffffff;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Pacifico', cursive;
+      color: var(--dark);
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 30% 15%, rgba(168,218,220,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 85%, rgba(255,180,194,0.3)  0%, transparent 55%),
+        linear-gradient(160deg, #e8f7f8 0%, #f5e6ff 50%, #e0f4f4 100%);
+      background-attachment: fixed;
+    }
+
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      animation: twinkle ease-in-out infinite;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0;    transform: scale(0.5) rotate(0deg); }
+      50%       { opacity: 0.55; transform: scale(1)   rotate(20deg); }
+    }
+
+    .page {
+      min-height: 100svh;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 1.6rem;
+    }
+
+    .header h1 {
+      font-size: clamp(1.5rem, 6vw, 2.4rem);
+      color: var(--dark);
+      line-height: 1.25;
+    }
+    .header h1 em {
+      color: var(--coral);
+      font-style: normal;
+    }
+
+    .header p {
+      font-size: clamp(0.78rem, 2.8vw, 0.92rem);
+      color: var(--lavender);
+      margin-top: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 1.6rem 1.4rem;
+      box-shadow: 0 4px 24px rgba(126,203,202,0.18);
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+
+    .form-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      color: var(--lavender);
+    }
+
+    .form-input {
+      font-family: 'Pacifico', cursive;
+      font-size: 1rem;
+      color: var(--dark);
+      border: 2px solid rgba(155,114,207,0.25);
+      border-radius: 12px;
+      padding: 0.75rem 0.9rem;
+      background: #faf8ff;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+    .form-input:focus { border-color: var(--lavender); }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.9rem 1rem;
+      min-height: 52px;
+      border-radius: 50px;
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(0.85rem, 3.5vw, 1rem);
+      color: white;
+      background: var(--coral);
+      box-shadow: 0 4px 0 #e05a4a;
+      border: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #e05a4a; }
+    .btn:active { transform: translateY(2px);  box-shadow: 0 2px 0 #e05a4a; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: 0 4px 0 #e05a4a; }
+
+    .grid-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .grid-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .grid-num {
+      width: 2rem;
+      height: 2rem;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(155,114,207,0.12);
+      color: var(--lavender);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .grid-input {
+      font-family: 'Pacifico', cursive;
+      font-size: 1rem;
+      color: var(--dark);
+      border: 2px solid rgba(155,114,207,0.25);
+      border-radius: 12px;
+      padding: 0.6rem 0.75rem;
+      background: #faf8ff;
+      outline: none;
+      width: 100%;
+      text-align: center;
+      transition: border-color 0.15s;
+    }
+    .grid-input:focus { border-color: var(--lavender); }
+
+    .hidden { display: none !important; }
+
+    .success {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .success .emoji { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .success .title { font-size: 1.1rem; color: var(--dark); margin-bottom: 0.4rem; }
+    .success .sub { font-size: 0.85rem; color: var(--lavender); }
+
+    .footer-row {
+      text-align: center;
+      margin-top: 1.8rem;
+      font-size: clamp(1.1rem, 4vw, 1.5rem);
+      letter-spacing: 0.25em;
+      opacity: 0.45;
+      overflow: hidden;
+    }
+
+    .critter {
+      position: absolute;
+      animation: float ease-in-out infinite;
+      pointer-events: none;
+      user-select: none;
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+    }
+    @media (max-width: 480px) {
+      .critter.hide-mobile { display: none; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0)     rotate(-5deg); }
+      50%       { transform: translateY(-14px) rotate(5deg); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="sparkles"></div>
+
+<main class="page">
+  <span class="critter" style="top:6%;left:3%;animation-duration:4s">🐠</span>
+  <span class="critter" style="top:8%;right:4%;animation-duration:5.2s;animation-delay:1s">🧜‍♀️</span>
+  <span class="critter" style="bottom:12%;left:4%;animation-duration:6s;animation-delay:2s">🐡</span>
+  <span class="critter" style="bottom:10%;right:3%;animation-duration:4.8s;animation-delay:1.5s">🐙</span>
+  <span class="critter hide-mobile" style="top:30%;left:2%;animation-duration:5s;animation-delay:.5s">🐚</span>
+  <span class="critter hide-mobile" style="top:35%;right:2%;animation-duration:4.5s;animation-delay:2.5s">⭐</span>
+
+  <div class="card">
+    <div class="header">
+      <span style="font-size:clamp(1.3rem,5vw,2rem);letter-spacing:0.2em;display:block;margin-bottom:0.8rem">🧜‍♀️ 🐠 🌊 🐚 ⭐</span>
+      <h1>Grid <em>Game</em></h1>
+      <p>Pick your numbers, see who wins!</p>
+    </div>
+
+    <div class="panel">
+
+      <!-- Step 1: name -->
+      <form id="name-form">
+        <div class="form-group">
+          <span class="form-label">What's your name?</span>
+          <input type="text" class="form-input" id="player-name" required placeholder="Your name" autocomplete="name">
+        </div>
+        <button type="submit" class="btn">Let's Play 🌊</button>
+      </form>
+
+      <!-- Step 2: grid -->
+      <form id="grid-form" class="hidden">
+        <div class="grid-list" id="grid-list"></div>
+        <button type="submit" class="btn" id="grid-submit">Submit 🐚</button>
+      </form>
+
+      <!-- Step 3: success -->
+      <div id="success" class="success hidden">
+        <div class="emoji">🐠</div>
+        <div class="title">Numbers locked in!</div>
+        <div class="sub" id="success-sub"></div>
+      </div>
+
+    </div>
+
+    <div class="footer-row">🐠 🌟 🐚 🪸 🐡 🦀 🌊</div>
+  </div>
+</main>
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkdNxF7yoooyBmgwkUvOU3EWtj02366-l2MTQq2H_gEjqwTPaRcRoh0GuJiVF_yVsA/exec';
+
+  let playerName = '';
+
+  const nameForm   = document.getElementById('name-form');
+  const gridForm   = document.getElementById('grid-form');
+  const gridList   = document.getElementById('grid-list');
+  const successBox = document.getElementById('success');
+  const successSub = document.getElementById('success-sub');
+
+  for (let i = 0; i <= 11; i++) {
+    const row = document.createElement('div');
+    row.className = 'grid-row';
+    row.innerHTML = `
+      <span class="grid-num">${i}</span>
+      <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" class="grid-input" data-index="${i}" placeholder="—">
+    `;
+    gridList.appendChild(row);
+  }
+
+  gridList.querySelectorAll('.grid-input').forEach(input => {
+    input.addEventListener('input', () => {
+      input.value = input.value.replace(/[^0-9]/g, '').slice(0, 2);
+    });
+  });
+
+  nameForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    playerName = document.getElementById('player-name').value.trim();
+    if (!playerName) return;
+    nameForm.classList.add('hidden');
+    gridForm.classList.remove('hidden');
+  });
+
+  gridForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const btn = document.getElementById('grid-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const numbers = {};
+    gridList.querySelectorAll('.grid-input').forEach(input => {
+      const v = input.value.trim();
+      if (v !== '') numbers[input.dataset.index] = v;
+    });
+
+    const data = {
+      type: 'grid-game',
+      name: playerName,
+      numbers,
+    };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify(data),
+    }).catch(() => {});
+
+    setTimeout(() => {
+      gridForm.classList.add('hidden');
+      successSub.textContent = `Thanks, ${playerName} — your picks are in! 🌊`;
+      successBox.classList.remove('hidden');
+    }, 800);
+  });
+
+  const container = document.getElementById('sparkles');
+  const icons = ['✨','⭐','🌟','💫'];
+  for (let i = 0; i < 10; i++) {
+    const s = document.createElement('span');
+    s.className = 'sparkle';
+    s.textContent = icons[Math.floor(Math.random() * icons.length)];
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${Math.random()*0.7+0.6}rem;animation-duration:${Math.random()*3+2}s;animation-delay:${Math.random()*6}s;`;
+    container.appendChild(s);
+  }
+</script>
+
+</body>
+</html>
